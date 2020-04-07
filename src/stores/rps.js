@@ -6,6 +6,7 @@ export default class RpsStore {
 
     @observable choice="";
     @observable computer="";
+    @observable number=15;
 
     hands=["rock","paper","scissors"];
     
@@ -18,18 +19,25 @@ constructor(root){
     
 }
 
-@action computerAction = () =>{
-    let items = ["rock", "paper", "scissors"];
-    this.computer=items[Math.floor(Math.random() * items.length)]
-}
+// @action computerAction = () =>{
+//     let items = ["rock", "paper", "scissors"];
+//     this.computer=items[Math.floor(Math.random() * items.length)]
+// }
+
 @action playerStart = () =>{
     this.gameStarted=true;
+    this.number=15;
+    const timeSet = setInterval(()=>{
+       if(this.number===1){
+           this.finish=true;
+           clearInterval(timeSet)
+       }
+        this.finish=true;
+        return this.number-=1},1000)
 }
 
 
 
-// selectRps action 1개로 묶는 방법 
-// Component 버튼에 따른 value값을 this.player로 넣어줘야하는데
 
 @action userChoice = (event) =>{
     const {target:{value:user}} = event;
@@ -42,6 +50,9 @@ constructor(root){
     else{
          this.choice="scissors"
     }
+    let items = ["rock", "paper", "scissors"];
+    this.computer=items[Math.floor(Math.random() * items.length)]
+    this.number=15;
 }
 
 
@@ -57,5 +68,15 @@ get playerChoice(){
 @computed
 get computerChoice(){
     return this.computer
+}
+@computed
+get count(){
+    if(this.number>0){
+        return this.number
+    }
+    else{
+        // LOSE 이후 다음판 넘어가는 것, return handling
+        return "LOSE"
+    }
 }
 }

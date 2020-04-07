@@ -119,7 +119,6 @@ const GameTemplate = ({
   computer,
   counter,
   score}) =>{
-    console.log(player,computer,counter,score)
     return(
         <AllContainer>
           <TimerContainer>{counter}</TimerContainer>
@@ -131,7 +130,7 @@ const GameTemplate = ({
           <GameSetContainer>SET</GameSetContainer>
           <GameContainer>
             <PlayerContainer>{player}</PlayerContainer>
-            <ScoreContainer>Score Container</ScoreContainer>
+            <ScoreContainer>{score}</ScoreContainer>
             <ComputerContainer>{computer}</ComputerContainer>
           </GameContainer>
         </AllContainer>

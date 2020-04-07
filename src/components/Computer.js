@@ -3,11 +3,11 @@ import {inject,observer} from "mobx-react";
 
 
 
-const Computer = ({computerAction,computerChoice}) => {
+const Computer = ({computerChoice}) => {
     return(
         <div>
         <div>Computer Container</div>
-        <button onClick = {computerAction}>{computerChoice}</button>
+        <div>{computerChoice}</div>
         </div>
     )
 }
@@ -19,6 +19,5 @@ const Computer = ({computerAction,computerChoice}) => {
 
 export default inject(({rps})=>
 ({
-computerAction:rps.computerAction,
 computerChoice:rps.computerChoice
 }))(observer(Computer))

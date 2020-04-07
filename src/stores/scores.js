@@ -6,7 +6,8 @@ export default class ScoreStore{
 
 @observable userName="momo";
 
-@observable score = {
+@observable score = [
+    {
     result:[],
     userName:"",
     player:0,
@@ -18,6 +19,8 @@ export default class ScoreStore{
     setTie:0
 }
 
+]
+ 
 
 
     // observable state
@@ -26,22 +29,27 @@ export default class ScoreStore{
   constructor(root){
       this.root=root;
       
+      
   }
 
-  @action handleUser = (event) =>{
-    // console.log(event);
-    const {target:{value}} = event;
-    this.userName=value;
-    console.log(this.userName)
+  @action handleScore = () =>{
+    // const{choice,computer,number} = this.root.rps;
+   console.log("Working..?");
+//  result 데이터로 승패 비교하고 나머지 arr에 정보 추가
+//  result reset ..
+// 여기에 계산 logic
 
   }
 
 
-  @action handleScore = ()=>{
-    //   const {gameStarted} =this.root.rps;
+//   @action handleScore = ()=>{
+//       const { choice,computer,number} = this.root.rps;
+//       this.score.push(choice,computer,number);
+//       console.log(choice,computer,number);
+//     //   const {gameStarted} =this.root.rps;
 
-    
-  }
+  
+//   }
   
 
   
@@ -51,13 +59,15 @@ export default class ScoreStore{
   
   
   // 필요하다면 computed ==>
+
   @computed 
   get getScore(){
-      return this.score;
+      return this.score.result;
   }
   
   @computed
   get getName(){
       return this.userName;
   }
+  
   }

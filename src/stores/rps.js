@@ -6,7 +6,7 @@ export default class RpsStore {
 
     @observable choice="";
     @observable computer="";
-    @observable number=15;
+    @observable number=10;
 
     hands=["rock","paper","scissors"];
     
@@ -19,23 +19,17 @@ constructor(root){
     
 }
 
-// @action computerAction = () =>{
-//     let items = ["rock", "paper", "scissors"];
-//     this.computer=items[Math.floor(Math.random() * items.length)]
-// }
-
 @action playerStart = () =>{
+    this.number=10;
+    // this.number값에 따라서 시간초과시 패배로 
     this.gameStarted=true;
-    this.number=15;
     const timeSet = setInterval(()=>{
        if(this.number===1){
-           this.finish=true;
            clearInterval(timeSet)
        }
-        this.finish=true;
-        return this.number-=1},1000)
+        return this.number--
+    },1000)
 }
-
 
 
 
@@ -52,7 +46,18 @@ constructor(root){
     }
     let items = ["rock", "paper", "scissors"];
     this.computer=items[Math.floor(Math.random() * items.length)]
-    this.number=15;
+    // number &  choice(user) &  computer ++ key&index
+    const {score,handleScore} = this.root.scores;
+    // number 는 push 할 필요 없이 승패여부만 확인
+    score.push(this.choice,this.computer);
+    handleScore();
+    console.log(score);
+    if(this.number===0){
+        this.playerStart();
+    }
+    if(this.number!==0){
+    this.number=10;
+}
 }
 
 
@@ -71,12 +76,10 @@ get computerChoice(){
 }
 @computed
 get count(){
-    if(this.number>0){
+    if(this.number>=0){
         return this.number
     }
-    else{
         // LOSE 이후 다음판 넘어가는 것, return handling
-        return "LOSE"
-    }
+        // score store 단에 패배 데이터 넘기고,
 }
 }

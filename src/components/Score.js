@@ -5,10 +5,22 @@ import {inject,observer} from "mobx-react";
 
 
 
-const Score = ({HandleScores,getScores,handleUser,userName,getName}) => {
+const Score = ({userChoice,computerChoice,countTime,handleScore,getScore}) => {
     return(
         <div>
-        {userName ? 
+            <div>
+        {userChoice}
+        </div>
+        <div>
+            {computerChoice}
+        </div>
+        <div>{countTime}
+        </div>
+        <div>
+            {getScore}
+        </div>
+        {/* <button onClick={handleScore}></button> */}
+        {/* {userName ? 
         <>
         GAME SCORE
         </> : 
@@ -16,16 +28,20 @@ const Score = ({HandleScores,getScores,handleUser,userName,getName}) => {
         <input placeholder="Username.." onChange={handleUser}>
         </input>
         <div>{getName}</div>
-        </form> }
-       
+        </form> } */}
         </div>
+
+       
     )
 }
 
-export default inject(({scores})=>({
-HandleScores:scores.handleScore,
-getScores:scores.getScore,
-handleUser:scores.handleUser,
+export default inject(({rps,scores})=>({
+userChoice:rps.choice,
+computerChoice:rps.computer,
+countTime:rps.number,
+// HandleScores:scores.handleScore,
+getScore:scores.getScore,
+handleScore:scores.handleScore,
 userName:scores.userName,
 getName:scores.getName
 }))(observer(Score));

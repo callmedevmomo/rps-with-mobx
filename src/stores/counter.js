@@ -4,6 +4,7 @@ import {observable,action,computed} from "mobx";
 export default class CounterStore{
     @observable number = 15;
     
+    // finish 사용하기
     @observable finish = false;
 
     constructor(root){

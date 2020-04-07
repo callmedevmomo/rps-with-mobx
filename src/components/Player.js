@@ -18,37 +18,40 @@ height:60px;`;
 
 
 
+
+// gameStarted는 Store에서 처리해야하는가
+
+
 const Player = ({
-    player,
     gameStarted,
     playerStart,
-    selectRock,
-    selectPaper,
-    selectScissors,
-    playerChoice}) => {
+    userChoice,
+    playerChoice,
+    hands}) => {
     return(
     <PlayerContainer>
-        {gameStarted ? <>
-    <ButtonContainer onClick={selectRock} value={player}>Rock</ButtonContainer>
-    <ButtonContainer onClick={selectPaper} value={player}>Paper</ButtonContainer>
-    <ButtonContainer onClick={selectScissors} value={player}>Scissors</ButtonContainer></> 
+        {gameStarted ? 
+    <>
+    {hands.map(hand => {
+        return (
+        <ButtonContainer 
+            onClick={userChoice}
+            key={hand} value={hand}>{hand}</ButtonContainer>
+            )
+    }
+    )}
+    <div>{playerChoice}</div>
+    </> 
     : <ButtonContainer onClick={playerStart}>Start</ButtonContainer>}
-    {/* <ButtonContainer onClick={playerStart}>Start</ButtonContainer>
-    <ButtonContainer onClick={selectRock}>Rock</ButtonContainer>
-    <ButtonContainer onClick={selectPaper}>Paper</ButtonContainer>
-    <ButtonContainer onClick={selectScissors}>Scissors</ButtonContainer> */}
-    {/* <div>{playerChoice}</div> */}
     </PlayerContainer>
     )
 
 }
 
-export default inject(({player})=>({
-playerOption:player.player,
-gameStarted:player.gameStarted,
-playerStart:player.playerStart,
-selectRock: player.selectRock,
-selectPaper: player.selectPaper,
-selectScissors: player.selectScissors,
-playerChoice: player.playerChoice
+export default inject(({rps})=>({
+gameStarted:rps.gameStarted,
+playerStart:rps.playerStart,
+userChoice: rps.userChoice,
+playerChoice: rps.playerChoice,
+hands:rps.hands
 }))(observer(Player));

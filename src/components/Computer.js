@@ -1,8 +1,6 @@
 import React from "react";
 import {inject,observer} from "mobx-react";
 
-// 함수형 Component && Class Component
-
 
 
 const Computer = ({computerAction,computerChoice}) => {
@@ -17,11 +15,10 @@ const Computer = ({computerAction,computerChoice}) => {
 
 
 
-// export default Computer;
 
 
-export default inject(({computer})=>
+export default inject(({rps})=>
 ({
-computerAction:computer.computerAction,
-computerChoice:computer.computerChoice
+computerAction:rps.computerAction,
+computerChoice:rps.computerChoice
 }))(observer(Computer))

@@ -19,9 +19,6 @@ height:60px;`;
 
 
 
-// gameStarted는 Store에서 처리해야하는가
-
-
 const Player = ({
     gameStarted,
     playerStart,
@@ -42,7 +39,8 @@ const Player = ({
     )}
     <div>{playerChoice}</div>
     </> 
-    : <ButtonContainer onClick={playerStart}>Start</ButtonContainer>}
+    : 
+    <ButtonContainer onClick={playerStart}>Start</ButtonContainer>}
     </PlayerContainer>
     )
 

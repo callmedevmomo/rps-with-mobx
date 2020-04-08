@@ -4,27 +4,24 @@ import {observable,action,computed} from "mobx";
 
 export default class ScoreStore{
 
-@observable userName="momo";
 
 @observable score = [
     {
     result:[],
-    userName:"",
-
     player:0,
     computer:0,
     tie:0,
-    gameRound:0,
+    gameRound:1,
 
-    setCount:0,
+    setCount:1,
     setPlayer:0,
     setComputer:0,
     setTie:0
 }
 ]
-    // observable state
-    //  hands = ['r', 's', 'p'];
-  
+view =[this.score.player,this.score.computer,this.score.item]
+@observable allGameFinished=null;
+
   constructor(root){
       this.root=root;
       
@@ -52,18 +49,12 @@ export default class ScoreStore{
     const result = this.score[0].result[roundCount-1]["result"]
     this.roundDetail(result)
     // this.score[0].setRound++;
-
     // console.log(this.score[0].result[roundCount-1]["result"])
     console.log(this.score)
-// const{choice,computer,number} = this.root.rps;
-   console.log("Working..?");
-//  result 데이터로 승패 비교하고 나머지 arr에 정보 추가
-//  result reset ..
-// 여기에 계산 logic
 
   }
 
-@action roundDetail = (result) => {
+@action roundDetail(result){
 if(this.score[0].gameRound<3){
     if(result==="win"){
         this.score[0].player++;
@@ -75,15 +66,13 @@ if(this.score[0].gameRound<3){
     this.score[0].gameRound++;
 }
 else if (this.score[0].gameRound===3){
-    this.score[0].gameRound=0;
+    this.score[0].gameRound=1;
     this.setDetail(this.score[0].player,this.score[0].computer);
-    // this.score[0].player&&computer&&tie
-    // this.score[0].setCount++;
 }
 }
 
-@action setDetail = (player,computer) =>{
-this.score[0].setCount++;
+@action setDetail  (player,computer) {
+const {setCount, setPlayer,setComputer,setTie } = this.score[0];
 if(player>computer){
     this.score[0].setPlayer++;
 }else if(player<computer){
@@ -91,18 +80,22 @@ if(player>computer){
 }else if(player===computer){
     this.score[0].setTie++;
 }
+this.score[0].setCount++;
+if(setCount===6){
+    this.setFinished(setPlayer,setComputer,setTie)
+}
 this.score[0].player=0;
 this.score[0].computer=0;
 this.score[0].tie=0;
 }
-  // 계산 로직
 
-//   player:0,
-//   computer:0,
-//   tie:0,
-//   gameRound:0,
+@action setFinished = (player,computer,tie) => {
+    this.root.rps.gameStarted=false;
+    this.allGameFinished = `Player Win : ${player} SET, Computer Win : ${computer} SET, Draw Game : ${tie} SET`
+}
 
-  @action roundResult = (choice,computer,number)=>
+
+  @action roundResult (choice,computer,number)
   {
     const rsp = {
     rock: { beats: ["scissors"] },
@@ -125,29 +118,6 @@ this.score[0].tie=0;
   }
   }
 
-  @action roundReset = (roundCount)=>{
-    if(roundCount===3){
-
-    }
-  }
-
-//   @action handleScore = ()=>{
-//       const { choice,computer,number} = this.root.rps;
-//       this.score.push(choice,computer,number);
-//       console.log(choice,computer,number);
-//     //   const {gameStarted} =this.root.rps;
-
-  
-//   }
-  
-
-  
-  
-  
-  // action ( controller )
-  
-  
-  // 필요하다면 computed ==>
 
   @computed 
   get getScore(){
@@ -159,4 +129,8 @@ this.score[0].tie=0;
       return this.userName;
   }
   
+  @computed
+  get gameResult(){
+      return this.allGameFinished;
+  }
   }

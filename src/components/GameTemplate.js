@@ -26,7 +26,7 @@ margin-top:10px;
 background-color:yellow;
 `;
 
-const RestartButton = styled.div`
+const RestartButton = styled.a`
 display:flex;
 justify-content:center;
 align-items:center;
@@ -34,6 +34,7 @@ width: 100px;
 height:60px;
 background-color:lightcoral;
 margin-right:60px;
+text-decoration:none;
 
 `;
 
@@ -124,10 +125,10 @@ const GameTemplate = ({
           <TimerContainer>{counter}</TimerContainer>
           <StartButton>START</StartButton>
           <ButtonContainer>
-          <RestartButton>Restart</RestartButton>
+          <RestartButton href="/">Restart</RestartButton>
           <StopButton>Stop</StopButton>
           </ButtonContainer>
-          <GameSetContainer>SET</GameSetContainer>
+          <GameSetContainer></GameSetContainer>
           <GameContainer>
             <PlayerContainer>{player}</PlayerContainer>
             <ScoreContainer>{score}</ScoreContainer>

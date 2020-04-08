@@ -5,7 +5,7 @@ import {inject,observer} from "mobx-react";
 
 
 
-const Score = ({userChoice,computerChoice,countTime,handleScore,getScore}) => {
+const Score = ({userChoice,computerChoice,countTime,handleScore,getScore,roundResult}) => {
     return(
         <div>
             <div>
@@ -43,5 +43,6 @@ countTime:rps.number,
 getScore:scores.getScore,
 handleScore:scores.handleScore,
 userName:scores.userName,
-getName:scores.getName
+getName:scores.getName,
+roundResult:scores.roundResult
 }))(observer(Score));

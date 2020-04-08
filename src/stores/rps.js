@@ -7,13 +7,13 @@ export default class RpsStore {
     @observable choice="";
     @observable computer="";
     @observable number=10;
-
+    @observable roundCount=0;
     hands=["rock","paper","scissors"];
     
 // gameStarted는 Store에서 처리해야하는가
     @observable gameStarted=false;
 
-
+    
 constructor(root){
     this.root=root;
     
@@ -34,6 +34,7 @@ constructor(root){
 
 
 @action userChoice = (event) =>{
+    this.roundCount++;
     const {target:{value:user}} = event;
     if(user==="rock"){
         this.choice="rock"
@@ -48,10 +49,15 @@ constructor(root){
     this.computer=items[Math.floor(Math.random() * items.length)]
     // number &  choice(user) &  computer ++ key&index
     const {score,handleScore} = this.root.scores;
+    // let roundCount=0;
+    // const scoreResultObj = {};
+    // scoreResultObj["round"]=roundCount++;
+    // scoreResultObj["player"]=this.choice;
+    // scoreResultObj["computer"]=this.computer;
     // number 는 push 할 필요 없이 승패여부만 확인
-    score.push(this.choice,this.computer);
+    // score[0].result.push(scoreResultObj);
     handleScore();
-    console.log(score);
+    // console.log(score);
     if(this.number===0){
         this.playerStart();
     }
